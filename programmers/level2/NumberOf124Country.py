@@ -7,36 +7,29 @@ programmers 124 나라의 숫자 문제풀이
 병목 원인: small case에서 답이 나오는 경우를 내고 나서야 확장 case를 생각하는 것이 맞는 것 같음
 개선 방법:
 """
-
-# 자리 개수 알면 n - base => 큰 값 자릿수부터 (3^m) 최대한 가져가기
-import math
-from collections import deque
-
-
-def transform_124(n: int):
-    """10진수를 124 나라의 숫자로 변환"""
-    answer = ''
-    base, digit = get_base(n)
-    remain = n - base
-    to_124 = ['1', '1', '2', '4']
-    pow_list = [1]
-    for _ in range(digit):
-        pow_list.append(pow_list[-1] * 3)
-
-    for d in range(digit, 0, -1):
-        p = pow_list[d - 1]
-        answer += to_124[int(1 + remain // p)]
-        remain %= p
-    return answer
-
-
-def get_base(target, base=1, digit=1):
-    if target < base:
-        return (base - 1) // 3, digit - 1
-    return get_base(target, 1 + base * 3, digit + 1)
+# 1 = 1 (0)
+# 2 = 2 (1)
+# 3 = 3 (2)
+# 4 = 3 + 1 (0) 
+# 5 = 3 + 2 (1)
+# 6 = 3 + 3 (2)
+# ...
+# 13 = 9 + 3 + 1 (000)
+# 14 = 9 + 3 + 2 (001)
+# 15 = 9 + 3 + 3 (002)
+# 오른쪽 값부터 뽑아내자
+# (N - 1) % 3 => 맨 오른쪽 숫자 이외에 무조건 0으로 만듬
+# N = N - (N - 1) % 3 => 맨 오른쪽 숫자는 구했으니 빼주자
+# N = N // 3 => 다음 자릿수는 3^1의 계수이니까 3으로 나누고 step 반복
 
 
 def solution(n):
-    answer = transform_124(n)
+    answer = ''
+    out_char = ['1', '2', '4']
+    while n > 0:
+        out = (n - 1) % 3
+        n = n - out
+        n = n // 3
+        answer = out_char[int(out)] + answer
     return answer
 
