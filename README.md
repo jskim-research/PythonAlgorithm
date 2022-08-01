@@ -25,3 +25,7 @@ programmers ~~문제 풀이
 
 1. Small case로 나누고 풀어보자.
 2. 어떤 자료구조가 적합할 지 한 번쯤 생각해보자. (stack, queue)
+
+
+## Python 내장함수 복잡도
+- https://wayhome25.github.io/python/2017/06/14/time-complexity/  (list, dict 내장함수 시간복잡도)
