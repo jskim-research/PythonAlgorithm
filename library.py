@@ -72,6 +72,28 @@ def sum_digit(number: int):
     return (number % 10) + sum_digit(number // 10)
 
 
+def get_gcd(n1: int, n2: int):
+    """두 정수간 최대공약수 (greatest common divisor) 구하기"""
+    min_val = min(n1, n2)
+    max_divisor = 1
+    for i in range(2, min_val+1):
+        if n1 % i == 0 and n2 % i == 0:
+            max_divisor = i
+    return max_divisor
+
+
+def get_lcm(n1: int, n2: int):
+    """두 정수간 최소공배수 (least common multiple) 구하기"""
+    gcd = get_gcd(n1, n2)
+    lcm = n1 // gcd * n2 // gcd * gcd
+    return lcm
+
+
 if __name__ == "__main__":
     mat = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
-    print(rotate_matrix_90_degree(mat))
+    # print(rotate_matrix_90_degree(mat))
+
+    print(get_gcd(20, 14))
+    print(get_gcd(20, 15))
+    print(get_lcm(20, 15))
+    print(get_lcm(20, 13))
