@@ -58,6 +58,20 @@ def rotate_matrix_90_degree(mat: List[List[float]]):
     return ret_mat
 
 
+def sum_digit(number: int):
+    """
+    왼쪽 끝 자릿수부터 오른쪽 끝 자릿수까지 순회
+
+    Args:
+        number: 정수
+    Returns:
+        자릿수들의 합
+    """
+    if number < 10:
+        return number
+    return (number % 10) + sum_digit(number // 10)
+
+
 if __name__ == "__main__":
     mat = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
     print(rotate_matrix_90_degree(mat))
