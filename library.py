@@ -5,6 +5,7 @@
 """
 import math
 from typing import List
+from bisect import bisect_left, bisect_right
 
 
 def count_digit(number: int):
@@ -89,6 +90,29 @@ def get_lcm(n1: int, n2: int):
     return lcm
 
 
+def find_below_above(array: List[int], num: int):
+    """
+    find numbers right above & below num
+
+    Args:
+        array:
+        num: target number
+    Returns:
+        [below, above]
+    """
+    # bisect_left(array, number): 만약 number를 array에 넣는다고 했을 때 들어가야하는 index 중 최소
+    # bisect_right : index 중 최대
+    left_idx = bisect_left(array, num)
+    right_idx = bisect_right(array, num)
+    if len(array) == 0:
+        print("no data")
+
+    ret = [None, None]
+    ret[0] = array[left_idx-1] if left_idx > 0 else None
+    ret[1] = array[right_idx] if right_idx < len(array) else None
+    return ret
+
+
 if __name__ == "__main__":
     mat = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
     # print(rotate_matrix_90_degree(mat))
@@ -97,3 +121,8 @@ if __name__ == "__main__":
     print(get_gcd(20, 15))
     print(get_lcm(20, 15))
     print(get_lcm(20, 13))
+
+    data = [1, 4, 6, 8, 9, 13, 17, 21, 23, 25, 27, 28, 33, 40]
+    print(find_below_above(data, 2))
+    for i in range(-1, 41):
+        print(f"{i}: {find_below_above(data, i)}")
