@@ -126,6 +126,23 @@ def is_prime(n: int):
     return True
 
 
+def get_prime_numbers(n: int):
+    """
+    1부터 n까지의 소수 구하기
+
+    제곱근까지만 구하는 이유: (https://nahwasa.com/entry/%EC%97%90%EB%9D%BC%ED%86%A0%EC%8A%A4%ED%85%8C%EB%84%A4%EC%8A%A4%EC%9D%98-%EC%B2%B4-%ED%98%B9%EC%9D%80-%EC%86%8C%EC%88%98%ED%8C%90%EC%A0%95-%EC%8B%9C-%EC%A0%9C%EA%B3%B1%EA%B7%BC-%EA%B9%8C%EC%A7%80%EB%A7%8C-%ED%99%95%EC%9D%B8%ED%95%98%EB%A9%B4-%EB%90%98%EB%8A%94-%EC%9D%B4%EC%9C%A0)
+    """
+    _is_prime = [False] + [True] * n  # 0~n까지 소수 여부
+    _is_prime[1] = False
+    m = int(n ** 0.5)  # 시간복잡도에 중요한 연산
+
+    for i in range(2, m + 1):
+        if _is_prime[i]:
+            for j in range(i+i, n+1, i):
+                _is_prime[j] = False
+    return [i for i, v in enumerate(_is_prime) if v]
+
+
 if __name__ == "__main__":
     mat = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
     # print(rotate_matrix_90_degree(mat))
@@ -139,3 +156,6 @@ if __name__ == "__main__":
     print(find_below_above(data, 2))
     for i in range(-1, 41):
         print(f"{i}: {find_below_above(data, i)}")
+
+    print(get_prime_numbers(100))
+
