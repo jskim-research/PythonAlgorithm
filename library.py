@@ -113,6 +113,19 @@ def find_below_above(array: List[int], num: int):
     return ret
 
 
+def is_prime(n: int):
+    """n이 소수인지 판별"""
+    if n < 1:
+        raise ValueError("n should be 1 or larger")
+    if n == 1:
+        return False
+    for i in range(2, int(n ** 0.5) + 1):
+        # 제곱근 이하의 값들만 의미가 있다...? => 시간복잡도에 중요한 가정
+        if n % i == 0:
+            return False
+    return True
+
+
 if __name__ == "__main__":
     mat = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
     # print(rotate_matrix_90_degree(mat))
